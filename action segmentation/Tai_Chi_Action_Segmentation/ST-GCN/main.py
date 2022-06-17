@@ -127,7 +127,6 @@ def test():
 
 	print('Test loss:',test_loss/i, 'Test Acc:',test_acc/i)
 	f1(target_seq, predit, [0.1,0.25,0.5])
-	np.savetxt('st_pre_2.txt', np.array(predit[639:1299]))
 
 if __name__ == '__main__':
 	if args.mode == 'train':
