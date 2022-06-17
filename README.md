@@ -4,7 +4,7 @@ Taichi action recognition and segmentation
 ## Taichi Dataset
 TaiChi data can be found in https://hit605.org/projects/taichi-data/.
 
-# Citation
+## Citation
 Please cite these papers in your publications if this project helps your research.
 
     @inproceedings{xu2020using,
