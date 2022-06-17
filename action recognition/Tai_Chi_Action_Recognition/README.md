@@ -1,3 +1,5 @@
+# Using Trajectoy Features for Tai Chi Action Recognition 
+
 ## Files
 
 Recognition.m -- Action Recognition.
