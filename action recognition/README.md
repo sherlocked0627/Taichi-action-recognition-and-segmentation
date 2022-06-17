@@ -1,5 +1,6 @@
 ## Citation
 Please cite these papers in your publications if this project helps your research.
+
     @inproceedings{xu2020using,
       title={Using trajectory features for tai chi action recognition},
       author={Xu, Leiyang and Wang, Qiang and Yuan, Lin and Ma, Xiang},
