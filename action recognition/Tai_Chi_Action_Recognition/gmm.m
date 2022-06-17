@@ -4,7 +4,7 @@ function [means, covariances, priors,LL, POSTERIORS] = gmm_para(D,Num)
 
 numClusters = Num;
 
-[IDX,IDX1,IDX2] = vl_kmeans(D,numClusters,'NumRepetitions',10);    %ÀûÓÃkmeans¾ÛÀàÎª¸ßË¹¾ÛÀàÉèÖÃ³õÖµ
+[IDX,IDX1,IDX2] = vl_kmeans(D,numClusters,'NumRepetitions',10);    %åˆ©ç”¨kmeansèšç±»ä¸ºé«˜æ–¯èšç±»è®¾ç½®åˆå€¼
 sumd = ones(3,64);
 W = zeros(1,64);
 for ii = 1:nozeronumber(D);
