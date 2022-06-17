@@ -74,18 +74,6 @@ def rdp_frame(num, a, c):
     close_index = closest(length, num)
     index_choose = index[close_index]
     return index_choose
-    # index = []
-    # length = []
-    # for epl in np.arange(0.1, 5, 0.1):
-    #     points = rdp(a, epl)
-    #     index1 = []
-    #     for i in range (len(points)):
-    #         index1.append(np.where(a[0,:] == points[i][0])[0][0])
-    #     index.append(index1)
-    #     length.append(len(index1))
-    # close_index = closest(length, num)
-    # index_choose = index[close_index]
-    # return index_choose
         
 def points2circle(p1, p2, p3):
     p1 = np.array(p1)
@@ -94,27 +82,21 @@ def points2circle(p1, p2, p3):
     num1 = len(p1)
     num2 = len(p2)
     num3 = len(p3)
-
-    # 输入检查
     if (num1 == num2) and (num2 == num3):
         if num1 == 2:
             p1 = np.append(p1, 0)
             p2 = np.append(p2, 0)
             p3 = np.append(p3, 0)
         elif num1 != 3:
-            print('\t仅支持二维或三维坐标输入')
             return None
     else:
-        print('\t输入坐标的维数不一致')
         return None
 
-    # 共线检查
     temp01 = p1 - p2
     temp02 = p3 - p2
     temp03 = np.cross(temp01, temp02)
     temp = (temp03 @ temp03) / (temp01 @ temp01) / (temp02 @ temp02)
     if temp < 10**-6:
-        # print('\t三点共线, 无法确定圆')
         return [0,0,0],0
 
     temp1 = np.vstack((p1, p2, p3))
@@ -289,7 +271,7 @@ def TRAIN(joint_index, inter_num, choose, som_shape, max_iter, sigma, learning_r
     y_train = []
     length = []
     train_geo = []
-    ######读取数据
+    ###### Read Data
     for a in range(1, 11):
         for c in choose:
             dataFile = '/home/xuleiyang/workspace/TaiChi/action/action.npy'
@@ -297,10 +279,10 @@ def TRAIN(joint_index, inter_num, choose, som_shape, max_iter, sigma, learning_r
             aa = np.load(dataFile, allow_pickle=True).item()
             bb = aa[s.format(m=a)][c]
             action = bb[joint_index]
-            #####选取关键帧kmeans
+            ##### Key Frames
             frame_index = rdp_frame(inter_num, a, c)
             frame_index_geo = np.rint(np.linspace(0,action.shape[1]-1,inter_num)).astype(int)
-            #####几何特征
+            ##### Geometry features
             cc = copy.copy(bb)
             left_shoulder = cc[44][:,frame_index_geo].T
             right_shoulder = cc[16][:,frame_index_geo].T
@@ -308,7 +290,7 @@ def TRAIN(joint_index, inter_num, choose, som_shape, max_iter, sigma, learning_r
             hand = cc[joint_index][:,frame_index_geo].T
             geo = geometry(left_shoulder, right_shoulder, right_elbow, hand)
             train_geo.append(geo)
-            ####生成训练数据
+            #### Train Data
             train_sample = train_sample_feature(frame_index, action, feature_number)
             x_train = np.vstack((x_train, train_sample))
             length.append(len(train_sample))
@@ -323,7 +305,6 @@ def TEST(joint_index, inter_num, choose, som, sample, label):
     y_test = []
     length = []
     test_geo = []
-    ######读取数据
     for a in range(1,11):
         for c in choose:
             dataFile = '/home/xuleiyang/workspace/TaiChi/action/action.npy'
@@ -331,10 +312,8 @@ def TEST(joint_index, inter_num, choose, som, sample, label):
             aa = np.load(dataFile, allow_pickle=True).item()
             bb = aa[s.format(m=a)][c]
             action = bb[joint_index]
-            #####选取关键帧kmeans
             frame_index = rdp_frame(inter_num, a, c)
             frame_index_geo = np.rint(np.linspace(0,action.shape[1]-1,inter_num)).astype(int)
-            #####几何特征
             cc = copy.copy(bb)
             left_shoulder = cc[44][:,frame_index_geo].T
             right_shoulder = cc[16][:,frame_index_geo].T
@@ -342,7 +321,6 @@ def TEST(joint_index, inter_num, choose, som, sample, label):
             hand = cc[joint_index][:,frame_index_geo].T
             geo = geometry(left_shoulder, right_shoulder, right_elbow, hand)
             test_geo.append(geo)
-            ####生成训练数据
             train_sample = train_sample_feature(frame_index, action, feature_number)
             x_test = np.vstack((x_test, train_sample))
             length.append(len(train_sample))
@@ -352,7 +330,7 @@ def TEST(joint_index, inter_num, choose, som, sample, label):
     return cluster_index, y_test, length, test_geo
 
 
-#######训练数据
+##### Train Data
 # size = math.ceil(np.sqrt(5 * np.sqrt(2160)))
 inter_num = 16
 size = 4
@@ -365,12 +343,12 @@ som_rh, X_train_rh, x_train_rh, y_train, length_train_rh, train_geo = TRAIN(join
 X_train = arr_size(X_train_rh, length_train_rh)
 
 
-#######测试数据
+##### Test Data
 # X_test_rh, y_test, length_test_rh, test_geo = TEST(joint_index, inter_num, [1,2,3,4,5,6,7,8,9,11,12,13,14,15,16,17,18,19], som_rh, x_train_rh, X_train_rh)
 X_test_rh, y_test, length_test_rh, test_geo = TEST(joint_index, inter_num, [10], som_rh, x_train_rh, X_train_rh)
 X_test = arr_size(X_test_rh, length_test_rh)
 
-#######SVM
+##### SVM
 clf = svm.SVC(C=2, kernel='rbf', gamma=1, decision_function_shape='ovr') 
 clf.fit(train_geo, y_train)
 test_label = clf.predict(test_geo)
@@ -382,7 +360,7 @@ for i in range (len(dis_svm)):
     dis_svm[i] = max_value - dis_svm[i]
     pass
 
-########dtw分类器
+##### DTW
 acc = []
 for cc in np.arange(0.8, 1.5, 0.01):
     class_num = 1
