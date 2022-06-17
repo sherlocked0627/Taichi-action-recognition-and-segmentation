@@ -1,5 +1,4 @@
-## Paper
-Using Trajectoy Features for Tai Chi Action Recognition 
+## Using Trajectoy Features for Tai Chi Action Recognition 
 
 ## Files
 
