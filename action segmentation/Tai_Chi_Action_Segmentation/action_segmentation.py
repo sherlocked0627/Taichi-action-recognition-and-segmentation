@@ -34,13 +34,12 @@ def points2circle(p1, p2, p3):
         print('error')
         return None
 
-    # 共线检查
+
     temp01 = p1 - p2
     temp02 = p3 - p2
     temp03 = np.cross(temp01, temp02)
     temp = (temp03 @ temp03) / (temp01 @ temp01) / (temp02 @ temp02)
     if temp < 10**-6:
-        # print('\t三点共线, 无法确定圆')
         return [0,0,0],0
 
     temp1 = np.vstack((p1, p2, p3))
@@ -396,8 +395,8 @@ def clear(num, data, start, end):
     return clear_1, A
 
 def SOM_train(X_train1,size,max_iter):
-    N = X_train1.shape[0]  #样本数量
-    M = X_train1.shape[1]  #维度/特征数量
+    N = X_train1.shape[0]
+    M = X_train1.shape[1]
     som = MiniSom(size, size, M, sigma=1, learning_rate=0.5)
     som.pca_weights_init(X_train1)
     som.train_batch(X_train1, max_iter, verbose=False)
