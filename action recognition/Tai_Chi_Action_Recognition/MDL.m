@@ -1,5 +1,5 @@
 function D = MDL(P)
-%最小描述长度原则
+
 len = nozeronumber(P);
 C = zeros(3,len);
 c = zeros(1,len);
