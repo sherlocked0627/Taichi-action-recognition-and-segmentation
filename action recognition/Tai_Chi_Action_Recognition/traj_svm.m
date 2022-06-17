@@ -18,10 +18,10 @@ for i =1:k
     testdata(1,i) = encoding__middle(:,p+1:num);
     testlabel(1,i) = label__middle(:,p+1:num);
 end
-train_data = cell2mat(traindata);  
+train_data = cell2mat(traindata);
 train_label = cell2mat(trainlabel);
-test_data = cell2mat(testdata);  
-test_label = cell2mat(testlabel); 
+test_data = cell2mat(testdata);
+test_label = cell2mat(testlabel);
 
 rr = randperm(size(test_data,2));
 test_data = test_data(:,rr);
