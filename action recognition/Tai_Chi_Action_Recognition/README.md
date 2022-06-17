@@ -1,4 +1,4 @@
-## Using Trajectoy Features for Tai Chi Action Recognition 
+# Using Trajectoy Features for Tai Chi Action Recognition 
 
 ## Files
 
@@ -14,7 +14,7 @@ gmm.m -- Gaussian Mixture Model Parameters.
 
 traj_svm.m -- Support Vector Machines.
 
-# Citation
+## Citation
 Please cite these papers in your publications if this project helps your research.
 
     @inproceedings{xu2020using,
