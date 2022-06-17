@@ -10,16 +10,16 @@ a = size(A1,2);
 
 
 aver = round((a-1)/2);
-lra1 = [0 -1];          %初始左右肩向量
+lra1 = [0 -1];
 lrb1_1 = B2(1,aver) - B3(1,aver);
 lrb1_2 = B2(3,aver) - B3(3,aver);
-lrb1 = [lrb1_1 lrb1_2];             %当前动作左右肩向量
-site1 = acos(dot(lra1,lrb1)/(norm(lra1)*norm(lrb1)))*180/pi;           %求两向量夹角
+lrb1 = [lrb1_1 lrb1_2];
+site1 = acos(dot(lra1,lrb1)/(norm(lra1)*norm(lrb1)))*180/pi;
 
 
 E = zeros(3,a-9);
 for r1 = 1:a-9
      E(1,r1) = (B1(1,r1+4) - B3(1,5))*cosd(site1) - (B1(3,r1+4) - B3(3,5))*sind(site1) + B3(1,5);
      E(2,r1) = B1(2,r1+4);
-     E(3,r1) = (B1(1,r1+4) - B3(1,5))*sind(site1) + (B1(3,r1+4) - B3(3,5))*cosd(site1) + B3(3,5);    %向量旋转计算公式
+     E(3,r1) = (B1(1,r1+4) - B3(1,5))*sind(site1) + (B1(3,r1+4) - B3(3,5))*cosd(site1) + B3(3,5);    %鍚戦噺鏃嬭浆璁＄畻鍏紡
 end
