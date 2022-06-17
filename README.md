@@ -5,7 +5,7 @@ Taichi action recognition and segmentation
 TaiChi data can be found in https://hit605.org/projects/taichi-data/.
 
 ## Citation
-Please cite these papers in your publications if this project helps your research.
+Please cite these papers in your publications if this code helps your research.
 
     @inproceedings{xu2020using,
       title={Using trajectory features for tai chi action recognition},
