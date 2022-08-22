@@ -1,1 +1,1 @@
-# Few-shot skeleton-based temporal action segmentation with data augmentation
+# An efficient framework for few-shot skeleton-based temporal action segmentation
